@@ -14,21 +14,23 @@ enclosing figure object, in a single call.
 
 import csv
 from datetime import datetime
+from email.quoprimime import header_check
 
 sitka_file = open("sitka_weather_2018_simple.csv",'r')
 
 sitka = csv.reader(sitka_file, delimiter = ',')
 
-header_row = next(sitka)
+header_row1 = next(sitka)
 
-print(type(header_row))
+print(type(header_row1))
 
-for index, column_header in enumerate(header_row):
+for index, column_header in enumerate(header_row1):
     print(index, column_header)
 
 lows1 = []
 highs1 = []
 dates1 = []
+title1 = next(sitka)[1]
 
 #test_date = datetime.strptime('2018-07-01', '%Y-%m-%d')
 #print(test_date)
@@ -49,11 +51,11 @@ death_file = open("death_valley_2018_simple.csv",'r')
 
 death_valley = csv.reader(death_file, delimiter = ',')
 
-header_row = next(death_valley)
+header_row2 = next(death_valley)
 
-print(type(header_row))
+print(type(header_row2))
 
-for index, column_header in enumerate(header_row):
+for index, column_header in enumerate(header_row2):
     print(index, column_header)
 
 
@@ -61,6 +63,7 @@ for index, column_header in enumerate(header_row):
 lows2 = []
 highs2 = []
 dates2 = []
+title2 = next(death_valley)[1]
 
 #test_date = datetime.strptime('2018-07-01', '%Y-%m-%d')
 #print(test_date)
@@ -101,13 +104,15 @@ plt.tick_params(axis="both", which="major", labelsize=16)
 #plt.subplots(2)
 
 plt.subplot(2,1,1)
-plt.title("Sitka Airport, AK US")
+
+plt.title(title1)
 plt.plot(dates1, highs1, c="red")
 plt.plot(dates1, lows1, c="blue")
 plt.fill_between(dates1, highs1, lows1, facecolor='blue', alpha=0.1)
 
 plt.subplot(2,1,2)
-plt.title("Death Valley, CA US")
+
+plt.title(title2) 
 plt.plot(dates2, highs2, c="red")
 plt.plot(dates2, lows2, c="blue")
 plt.fill_between(dates2, highs2, lows2, facecolor='blue', alpha=0.1)
@@ -126,6 +131,7 @@ plt.title("Highs")
 plt.subplots(2,1)
 plt.plot(dates,highs,c="blue")
 plt.title("Lows")
+
 
 plt.suptitle("Highs and Lows of Death Valley, California 2018")
 '''
